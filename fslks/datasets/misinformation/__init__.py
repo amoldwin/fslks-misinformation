@@ -8,3 +8,4 @@ from .rank_predict_manual_split import RankPredictManualSplit
 from .bool_q import BoolQ
 from .bool_q_sentences import BoolQSentences
 from .test import Test
+from .sheffield_plagiarism import SheffieldPlagiarism

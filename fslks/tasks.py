@@ -6,34 +6,50 @@ from fslks.datasets.summarization import *
 from fslks.datasets.misinformation import *
 
 def register_task_mappings():
+    sink.register('sheffield_plagiarism',
+                  input=sink.Join([
+                      sink.Constant('plagiarism'),
+                      sink.Constant('original:'),
+                      sink.Feature('original'),
+                      sink.Constant('student:'),
+                      sink.Feature('student')
+                  ]),
+                  target=sink.LabelSwitch('label', {
+                      0: sink.Constant('near copy'),
+                      1: sink.Constant('light revision'),
+                      2: sink.Constant('heavy revision'),
+                      3: sink.Constant('non-plagiarism'),
+
+
+                  }))
     sink.register('bool_q_sentences',
                   input=sink.Join([
-                      sink.Constant('bool_q_sentences'),
+                      sink.Constant('boolqsentences binary'),
                       sink.Constant('question:'),
                       sink.Feature('question'),
-                      sink.Constant('text:'),
+                      sink.Constant('sentencetext:'),
                       sink.Feature('text')
                   ]),
                   target=sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False')
                   }))
     sink.register('multi_nli',
                   input=sink.Join([
-                      sink.Constant('mnli'),
+                      sink.Constant('newmnli binary'),
                       sink.Constant('question:'),
                       sink.Feature('hypothesis'),
                       sink.Constant('text:'),
                       sink.Feature('premise')
                   ]),
                   target=sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('Unknown'),
-                      2: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False'),
+                      2: sink.Constant('False')
                   }))
     sink.register('bool_q',
                   input=sink.Join([
-                      sink.Constant('bool_q'),
+                      sink.Constant('bpassage premise'),
                       sink.Constant('question:'),
                       sink.Feature('question'),
                       sink.Constant('text:'),
@@ -45,7 +61,7 @@ def register_task_mappings():
                   }))
     sink.register('biocontradiction',
                   input=sink.Join([
-                      sink.Constant('bio contradiction'),
+                      sink.Constant('biocontradiction premise'),
                       sink.Constant('question:'),
                       sink.Feature('question'),
                       sink.Constant('text:'),
@@ -57,15 +73,15 @@ def register_task_mappings():
                   }))
     sink.register('question_sentence',
                   input=sink.Join([
-                      sink.Constant('bio contradiction'),
+                      sink.Constant('biocontradiction qestionsent binary'),
                       sink.Constant('premise question:'),
                       sink.Feature('question'),
                       sink.Constant('sentence text:'),
                       sink.Feature('text')
                   ]),
                   target=sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False')
                   }))
     sink.register('question_sentence_manual_split',
                   input=sink.Join([
@@ -76,8 +92,8 @@ def register_task_mappings():
                       sink.Feature('text')
                   ]),
                   target=sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False')
                   }))
     sink.register('abstract_abstract',
                   input=sink.Join([
@@ -115,8 +131,8 @@ def register_task_mappings():
                       sink.Feature('best_sentence'),
                     #   sink.Constant('agreement:'),
                       sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False')
                   }) ]))
     sink.register('rank_predict_manual_split',
                   input=sink.Join([
@@ -130,8 +146,8 @@ def register_task_mappings():
                       sink.Feature('best_sentence'),
                     #   sink.Constant('agreement:'),
                       sink.LabelSwitch('label', {
-                      0: sink.Constant('Yes'),
-                      1: sink.Constant('No')
+                      0: sink.Constant('True'),
+                      1: sink.Constant('False')
                   }) ]))
     # sink.register('multi_nli',
     #               input=sink.Join([

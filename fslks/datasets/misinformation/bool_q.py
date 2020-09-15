@@ -99,10 +99,14 @@ class BoolQ(tfds.core.GeneratorBasedBuilder):
         # dl_dir = dl_manager.download_and_extract(_DOWNLOAD_URL)
         # dl_dir = os.path.join(dl_dir, r'biocontradiction')
         return [
-            tfds.core.SplitGenerator(
+        tfds.core.SplitGenerator(
                 name=tfds.Split.TRAIN,
                 gen_kwargs={"path": os.path.join(path,  "train.jsonl")},
-            )
+            ),
+        tfds.core.SplitGenerator(
+                name=tfds.Split.TEST,
+                gen_kwargs={"path": os.path.join(path,  "dev.jsonl")},
+            ),
         ]
 
     def _generate_examples(self, path=_CSV_PATH):
